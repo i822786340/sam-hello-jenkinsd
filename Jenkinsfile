@@ -21,7 +21,9 @@ pipeline {
 
         stage('Run Unit Tests') {
             steps {
-                sh 'mvn test'
+                dir('HelloWorldFunction') {
+                    sh 'mvn test'
+                }
             }
         }
 
