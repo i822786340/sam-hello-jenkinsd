@@ -29,13 +29,12 @@ pipeline {
 
         stage('Deploy with SAM') {
             steps {
-                sh '''
-                    sam deploy \
-                        --stack-name sam-hello-jenkinsd \
-                        --capabilities CAPABILITY_IAM \
-                        --no-confirm-changeset \
-                        --resolve-s3
-                '''
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: '52929e35-4f2f-4826-8b91-d1830ed6744d'
+                ]]) {
+                    sh 'sam deploy --stack-name sam-hello-jenkinsd --capabilities CAPABILITY_IAM --no-confirm-changeset --resolve-s3'
+                }
             }
         }
     }
