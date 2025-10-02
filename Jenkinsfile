@@ -28,9 +28,6 @@ pipeline {
         }
 
         stage('Deploy with SAM') {
-            when {
-                branch 'main'
-            }
             steps {
                 sh '''
                     sam deploy \
